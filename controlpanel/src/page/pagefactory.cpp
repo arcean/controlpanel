@@ -834,6 +834,7 @@ QList< MSceneWindow * > PageFactory::pageHistory ()
 void PageFactory::onMetadataLoaded ()
 {
     DcpDebug::end("applet reg");
+    DCP_PERF_RECORD_EVENT("metadata_loaded");
     m_AppletsRegistered = true;
     m_PageChangeDisabled = false;
     completeCategoryPage();
@@ -842,6 +843,7 @@ void PageFactory::onMetadataLoaded ()
 void PageFactory::onMetadataPreloaded ()
 {
     DcpDebug::end("preload_desktops");
+    DCP_PERF_RECORD_EVENT("metadata_preloaded");
     completeCategoryPage();
 
     DcpAppletManager* mng = DcpAppletManager::instance();
