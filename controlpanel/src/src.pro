@@ -28,7 +28,7 @@ HEADERS += $$system(find ./ -name \'*.h\')
 SOURCES += $$system(find ./ -name \'*.cpp\')
 SOURCES += ../../briefsupplier/src/bsuppliercommands.cpp
 
-CONFIG += build_all warn_on debug
+CONFIG += build_all warn_on debug silent
 
 DISABLE_LAUNCHER {
     CONFIG += meegotouch

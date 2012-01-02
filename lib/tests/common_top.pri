@@ -9,7 +9,7 @@ DEPENDPATH = $$INCLUDEPATH
 
 QMAKE_LIBDIR += ../../lib
 
-CONFIG += debug meegotouch
+CONFIG += debug meegotouch silent
 
 QT += testlib
 

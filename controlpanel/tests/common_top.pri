@@ -8,7 +8,7 @@ LIBDCPSRC =../../../lib/src
 LIBDCPINCLUDE=../../../lib/src/include
 LIBDCPFAKES=../../../lib/tests/doubles
 STUBSDIR = ../doubles
-CONFIG += debug
+CONFIG += debug silent
 
 QT += testlib
 

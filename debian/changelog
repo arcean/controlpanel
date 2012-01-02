@@ -1,8 +1,9 @@
-duicontrolpanel (0.14.8~unreleased) unstable; urgency=low
+duicontrolpanel (0.14.8~1) harmattan; urgency=low
 
-  * DUMMMY
+  [ David Kedves ]
+  * Silence the building...
 
- -- Viktor Nagy <viktor.nagy@blumsoft.eu>  Fri, 16 Dec 2011 13:16:02 +0100
+ -- David Kedves <dkedves@blumsoft.eu>  Mon, 02 Jan 2012 14:39:07 +0100
 
 duicontrolpanel (0.14.7.1) unstable; urgency=low
 
