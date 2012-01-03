@@ -128,8 +128,17 @@ namespace DcpDebug
 
 /*! \brief convenience macros for debugging how long time a function takes.
  * \details The start and the end of the function should be marked with it. */
+#if defined(DEBUG) || defined(PERF_MEASUREMENT)
 #define DCP_FUNC_START DcpDebug::start(Q_FUNC_INFO);
 #define DCP_FUNC_END DcpDebug::end(Q_FUNC_INFO);
+#define DCP_PERF_START(msg) DcpDebug::start((msg));
+#define DCP_PERF_END(msg) DcpDebug::end((msg));
+#else
+#define DCP_FUNC_START
+#define DCP_FUNC_END
+#define DCP_PERF_START(msg)
+#define DCP_PERF_END(msg)
+#endif
 
 /* In debug mode this macro is a synonym for assert,
  * otherwise just outputs a waring message (as we are expected not to assert

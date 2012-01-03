@@ -205,9 +205,10 @@ bool DcpAppletManager::loadDesktopFile(const QString &path)
         return false;
     }
 
-    DcpDebug::start("new DcpAppletMetadata");
+    DCP_PERF_START("new DcpAppletMetadata");
     DcpAppletMetadata *metadata = new DcpAppletMetadata(path);
-    DcpDebug::end("new DcpAppletMetadata");
+    DCP_PERF_END("new DcpAppletMetadata");
+
     if (!metadata->isValid()) {
         qWarning() << "invalid desktop file:" << path;
         delete metadata;
@@ -376,9 +377,10 @@ void DcpAppletManager::processSingleDesktopFile()
 
     QString file = m_DesktopFilesToProcess.takeFirst();
     DCP_DEBUG ("Loading %s", DCP_STR(file));
-    DcpDebug::start("load_desktop");
+    DCP_PERF_START("load_desktop");
     bool st = loadDesktopFile(file);
-    DcpDebug::end("load_desktop");
+    DCP_PERF_END("load_desktop");
+
     if (!st) {
         qWarning() << "Failed to load" << file;
     }

@@ -56,7 +56,8 @@ int
 startMainApplication (int argc, char* argv[])
 {
     DCP_DEBUG ("");
-    DcpDebug::start("start_app");
+    DCP_PERF_START("start_app");
+
     openlog ("dcp-main", LOG_PID, LOG_USER);
 
     // init servicefw api:
@@ -78,7 +79,8 @@ startMainApplication (int argc, char* argv[])
     // we create the start page here
     service->createStartPage();
 
-    DcpDebug::end("start_app");
+    DCP_PERF_END("start_app");
+
     int result = app->exec();
 
     return result;
@@ -135,7 +137,7 @@ M_EXPORT int main(int argc, char *argv[])
     DCP_PERF_START_LOGGING("/tmp/dcpperf.log");
     DCP_PERF_RECORD_EVENT("process_start");
     
-    DcpDebug::start("main_init");
+    DCP_PERF_START("main_init");
     // disables applet supervisor since only the helper process needs it
     DcpWrongApplets::disable();
 
@@ -182,7 +184,7 @@ M_EXPORT int main(int argc, char *argv[])
         }
     }
 
-    DcpDebug::end("main_init");
+    DCP_PERF_END("main_init");
 
     int result;
 

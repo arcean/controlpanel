@@ -15,9 +15,6 @@
 **
 ****************************************************************************/
 
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -29,7 +26,7 @@
 
 #include "dcpperflogger.h"
 
-static DcpPerfLogger g_dcpPerfLoggerInstance;
+static DcpPerfLogger *g_dcpPerfLoggerInstance;
 
 DcpPerfLogger::DcpPerfLogger() : m_logFd(-1)
 {
@@ -45,12 +42,17 @@ DcpPerfLogger::~DcpPerfLogger()
     }
 }
 
-DcpPerfLogger &DcpPerfLogger::instance()
+DcpPerfLogger *
+DcpPerfLogger::instance()
 {
+    if (! g_dcpPerfLoggerInstance)
+        g_dcpPerfLoggerInstance = new DcpPerfLogger;
+
     return g_dcpPerfLoggerInstance;
 }
 
-void DcpPerfLogger::startLogging(const QString &filename)
+void
+DcpPerfLogger::startLogging(const QString &filename)
 {
     m_logFd = open(filename.toAscii().data(), 
                    O_WRONLY | O_CREAT | O_APPEND, 
@@ -60,7 +62,8 @@ void DcpPerfLogger::startLogging(const QString &filename)
     }
 }
 
-void DcpPerfLogger::recordEvent(const QString &event)
+void
+DcpPerfLogger::recordEvent(const QString &event)
 {
     if (m_logFd < 0) {
         return;

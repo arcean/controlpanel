@@ -14,10 +14,6 @@
 ** of this file.
 **
 ****************************************************************************/
-
-/* -*- Mode: C; indent-tabs-mode: s; c-basic-offset: 4; tab-width: 4 -*- */
-/* vim:set et ai sw=4 ts=4 sts=4: tw=80 cino="(0,W2s,i2s,t0,l1,:0" */
-
 #ifndef DCPPERFLOGGER_H__
 #define DCPPERFLOGGER_H__
 
@@ -26,11 +22,13 @@
 
 class DcpPerfLogger {
     public:
-        DcpPerfLogger();
         ~DcpPerfLogger();
-        static DcpPerfLogger &instance();
+        static DcpPerfLogger *instance();
         void startLogging(const QString &filename);
         void recordEvent(const QString &event);
+
+    protected:
+        DcpPerfLogger();
 
     private:
         int m_logFd;
@@ -42,7 +40,7 @@ class DcpPerfLogger {
 inline
 void DCP_PERF_RECORD_EVENT(const QString &event) {
 #ifdef PERF_MEASUREMENT
-    DcpPerfLogger::instance().recordEvent(event);
+    DcpPerfLogger::instance()->recordEvent(event);
 #else
     Q_UNUSED(event)
 #endif
@@ -51,7 +49,7 @@ void DCP_PERF_RECORD_EVENT(const QString &event) {
 inline
 void DCP_PERF_START_LOGGING(const QString &filename) {
 #ifdef PERF_MEASUREMENT
-    DcpPerfLogger::instance().startLogging(filename);
+    DcpPerfLogger::instance()->startLogging(filename);
 #else
     Q_UNUSED(filename);
 #endif

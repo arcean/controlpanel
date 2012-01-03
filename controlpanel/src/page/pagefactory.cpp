@@ -188,7 +188,7 @@ PageFactory::createPage (const PageHandle &handle)
                 page = createMainPage();
             } else {
                 // preload applet desktops that are shown on the main view
-                DcpDebug::start("preload_desktops");
+                DCP_PERF_START("preload_desktops");
 
                 mng->preloadMetadataAsync();
                 if (m_PageWithDelayedContent) {
@@ -270,12 +270,12 @@ void PageFactory::preloadBriefReceiver ()
 void
 PageFactory::completeCategoryPage ()
 {
-    DcpDebug::start("completeCategoryPage");
+    DCP_PERF_START("completeCategoryPage");
     if (m_PageWithDelayedContent) {
-        DcpDebug::start("createBody");
+        DCP_PERF_START("createBody");
         m_PageWithDelayedContent->createBody();
         registerPage (m_PageWithDelayedContent);
-        DcpDebug::end("createBody");
+        DCP_PERF_END("createBody");
         DCP_PERF_RECORD_EVENT("complete_category_page");
         m_PageWithDelayedContent = 0;
         QTimer::singleShot (0, this, SLOT(postCompleteCategoryPage()));
@@ -286,7 +286,7 @@ PageFactory::completeCategoryPage ()
             switchToMainPageWithPageDropping();
         }
     }
-    DcpDebug::end("completeCategoryPage");
+    DCP_PERF_END("completeCategoryPage");
 
     // this starts the briefsupplier process:
     if (m_StartupState == NothingStarted) {
@@ -707,7 +707,7 @@ PageFactory::changePage (const PageHandle &handle, bool dropOtherPages)
         return false;
     }
 
-    DcpDebug::end("activate_applet");
+    DCP_PERF_END("activate_applet");
 
     /*
      * Time to show the new page.
@@ -833,7 +833,7 @@ QList< MSceneWindow * > PageFactory::pageHistory ()
 
 void PageFactory::onMetadataLoaded ()
 {
-    DcpDebug::end("applet reg");
+    DCP_PERF_END("applet reg");
     DCP_PERF_RECORD_EVENT("metadata_loaded");
     m_AppletsRegistered = true;
     m_PageChangeDisabled = false;
@@ -842,7 +842,7 @@ void PageFactory::onMetadataLoaded ()
 
 void PageFactory::onMetadataPreloaded ()
 {
-    DcpDebug::end("preload_desktops");
+    DCP_PERF_END("preload_desktops");
     DCP_PERF_RECORD_EVENT("metadata_preloaded");
     completeCategoryPage();
 
@@ -850,7 +850,7 @@ void PageFactory::onMetadataPreloaded ()
     if (!mng->isMetadataLoaded()) {
         if (!mng->isMetadataLoadStarted()) {
             // start loading the other desktop files
-            DcpDebug::start("applet reg");
+            DCP_PERF_START("applet reg");
             mng->loadMetadataAsync(); 
         }
     }
