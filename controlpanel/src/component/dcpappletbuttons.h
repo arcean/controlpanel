@@ -30,6 +30,9 @@ class DcpPage;
 class DcpAppletObject;
 class MLabel;
 
+// Support for the mostused category.
+//#define SUPPORT_MOSTUSED
+
 class DcpAppletButtons :
     public DcpMainCategory
 {

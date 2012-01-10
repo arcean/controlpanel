@@ -40,6 +40,8 @@ bool DcpWrongApplets::sm_Disabled = false;
 const QString keyPath = "/apps/duicontrolpanel/badplugins";
 const QString dcpTimeStampPath = keyPath + "/dcpTimeStamp";
 
+//#define DEBUG
+#include "dcpdebug.h"
 
 /*******************************************************************************
  * Here some signal handlers are implemented.
@@ -161,7 +163,7 @@ termination_signal_handler (
  */
 DcpWrongApplets::DcpWrongApplets ()
 {
-    DCP_DEBUG ("");
+    DCP_WARNING ("");
 
     // on dcp timestamp change, remove the list of bad applets
     removeBadsOnDcpTimeStampChange();

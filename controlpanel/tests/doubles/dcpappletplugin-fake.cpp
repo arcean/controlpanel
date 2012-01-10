@@ -19,6 +19,9 @@
 #include "dcpappletplugin-applet.h"
 #include "dcpappletplugin_p.h"
 
+#define DEBUG
+#include "dcpdebug.h"
+
 DcpAppletPlugin::DcpAppletPlugin(DcpAppletMetadata *metadata):
    d_ptr(new DcpAppletPluginPrivate(metadata))
 {

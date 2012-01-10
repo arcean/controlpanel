@@ -31,6 +31,8 @@
 #include <QTime>
 #include "dcpdebug.h"
 
+//#define DEBUG
+#include "dcpdebug.h"
 
 DcpAppletObjectPrivate::DcpAppletObjectPrivate ():
     m_Brief (0)
@@ -78,7 +80,6 @@ DcpAppletObject::widgetTypeID () const
     if (brief()) {
         retval = brief()->widgetTypeID ();
         if (DcpWidgetType::isIdValid(retval)) {
-            DCP_DEBUG ("brief->widgetTypeID () provides a widget type.");
             return retval;
 
             // invalid marks for us that the type is specified in the .desktop
@@ -86,8 +87,9 @@ DcpAppletObject::widgetTypeID () const
         } else if (retval != DcpWidgetType::BriefInvalid) {
             /* FIXME: for supporting old api,
              * please remove ones deprecated ids are removed */
-            DCP_WARNING ("%s: brief->widgetTypeID () returned a DEPRECATED id"
-                         ", please use DcpWidgetType::* instead", qPrintable(text1()));
+            DCP_WARNING ("%s: brief->widgetTypeID () returned a DEPRECATED id,"
+                         "please use DcpWidgetType::* instead", 
+                         qPrintable(text1()));
             switch (retval) {
                 case DCPLABELBUTTON:
                 case DCPLABEL2BUTTON:
@@ -111,7 +113,6 @@ DcpAppletObject::widgetTypeID () const
     /*
      * Otherwise we return the default value, simple plugins can rely on this.
      */
-    DCP_DEBUG ("Using default widget type.");
     return DcpWidgetType::Label;
 }
 

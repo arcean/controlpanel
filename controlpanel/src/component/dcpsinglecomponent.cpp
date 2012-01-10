@@ -31,6 +31,8 @@
 #include <MLabel>
 #include <MImageWidget>
 
+//#define DEBUG
+#include "dcpdebug.h"
 
 DcpSingleComponent::DcpSingleComponent (
         QGraphicsWidget     *parent,

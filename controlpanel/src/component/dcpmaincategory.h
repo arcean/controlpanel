@@ -24,6 +24,9 @@
 #include <MSeparator>
 #include <QGraphicsWidget>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 /*!
  * A rectangular table like widget inside the main page and the category pages.
  */
@@ -63,13 +66,17 @@ DcpMainCategory::mLayout() const
 inline void
 DcpMainCategory::appendWidget ( QGraphicsWidget *component)
 {
+    DCP_DEBUG ("");
+
     mLayout()->addItem (component);
-    mLayout()->setAlignment (component, Qt::AlignHCenter);
+    //mLayout()->setAlignment (component, Qt::AlignHCenter);
 }
 
 inline void
 DcpMainCategory::appendSeparator ()
 {
+    DCP_DEBUG ("");
+
     MSeparator *sep = new MSeparator();
     sep->setStyleName("CommonHorizontalSeparatorInverted");
     mLayout()->addItem (sep);

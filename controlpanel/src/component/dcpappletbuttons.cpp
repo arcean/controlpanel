@@ -50,6 +50,9 @@
 #include <QGraphicsLinearLayout>
 #include <MStylableWidget>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 DcpAppletButtons::DcpAppletButtons (
         const Category *categoryInfo,
         QGraphicsWidget        *parent,
@@ -62,6 +65,7 @@ DcpAppletButtons::DcpAppletButtons (
     m_HasButton (false),
     m_MainAppletCount (0)
 {
+    DCP_DEBUG ("------------------------------------------");
     DcpContentItemCellCreator* cellCreator = new DcpContentItemCellCreator();
     m_List->setCellCreator(cellCreator);
     appendWidget (m_List);
@@ -129,32 +133,47 @@ DcpAppletButtons::retranslateUi()
 void
 DcpAppletButtons::createContents ()
 {
-    if (!m_CategoryInfo) return;
+    if (!m_CategoryInfo) {
+        DCP_WARNING ("No m_CategoryInfo");
+        return;
+    }
 
     /*
      * Getting the list of applet variants (metadata objects) that will go into
      * this widget.
      */
     DcpAppletMetadataList metadatas;
+
+    #ifdef SUPPORT_MOSTUSED
     bool isMostUsed = m_CategoryInfo->name() == MostUsed;
+
     if (isMostUsed) {
         metadatas = DcpAppletManager::instance()->listMostUsed();
     } else {
         metadatas = CategoryUtils::metadataList (m_CategoryInfo);
     }
+    #else
+    metadatas = CategoryUtils::metadataList (m_CategoryInfo);
+    #endif
 
     // ensure that all needed catalogs are loaded for the applets before
     DcpTranslationManager::instance()->ensureTranslationsAreLoaded(metadatas);
 
     // sort it: (mostused is already sorted)
-    if (!isMostUsed) {
+    #ifdef SUPPORT_MOSTUSED
+    if (!isMostUsed) 
         qSort (metadatas.begin(), metadatas.end(),
                m_CategoryInfo->appletSort() == Category::SortByTitle ?
                DcpAppletMetadata::titleLessThan :
                DcpAppletMetadata::orderLessThan
         );
-    }
-
+    #else
+    qSort (metadatas.begin(), metadatas.end(),
+               m_CategoryInfo->appletSort() == Category::SortByTitle ?
+               DcpAppletMetadata::titleLessThan :
+               DcpAppletMetadata::orderLessThan);
+    #endif
+    
     // add the elements:
     QStandardItemModel* model = new QStandardItemModel(m_List);
     QStringList mainApplets = m_CategoryInfo->mainApplets();
@@ -271,6 +290,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
 
     switch (widgetId) {
         case DcpWidgetType::Button:
+            DCP_DEBUG ("DcpWidgetType::Button");
             if (!m_HasButton) {
                 m_HasButton = true;
                 insertSpacer (getItemCount()-1);
@@ -284,6 +304,7 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
              * The special type of applet brief creates its own icon,
              * please do not use it.
              */
+            DCP_DEBUG ("DcpWidgetType::Special");
             QGraphicsWidget* widget = createSpecial (applet);
             if (widget) {
                 mLayout()->insertItem (getItemCount()-1, widget);
@@ -295,11 +316,13 @@ DcpAppletButtons::addComponent (DcpAppletMetadata *metadata,
         case DcpWidgetType::Slider:
             // unfortunately mlist does not seem to honor variable item height,
             // that is why this slider hack here:
+            DCP_DEBUG ("DcpWidgetType::Slider");
             appendWidget (createSlider(applet, metadata));
             break;
 
         default: {
             // the normal items come into the list:
+            DCP_DEBUG ("default:");
             QString tdriverID = genTDriverID("DcpContentItem::", metadata);
 
             QStandardItem* item = new QStandardItem();

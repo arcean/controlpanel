@@ -57,9 +57,12 @@ DcpAppletCategoryPage::~DcpAppletCategoryPage ()
 QGraphicsWidget*
 DcpAppletCategoryPage::createCategories ()
 {
-    DcpMainCategory *otherCategories = new DcpMainCategory();
-    QList<const Category*> categoryList;
-    if (m_CategoryInfo) categoryList = m_CategoryInfo->children();
+    DcpMainCategory        *otherCategories = new DcpMainCategory();
+    QList<const Category*>  categoryList;
+
+    if (m_CategoryInfo) 
+        categoryList = m_CategoryInfo->children();
+
     if (categoryList.isEmpty()) {
         return otherCategories;
     }
@@ -72,8 +75,9 @@ DcpAppletCategoryPage::createCategories ()
 
     bool wasButton = false;
     foreach (const Category *info, categoryList) {
-        // hide hidden categories:
-        if (!CategoryUtils::isVisible (info)) continue;
+        // Skip hidden categories:
+        if (!CategoryUtils::isVisible (info)) 
+            continue;
 
         DcpTranslationManager::instance()->ensureTranslationsAreLoaded (
                 info->translationCategories());
@@ -191,7 +195,7 @@ DcpAppletCategoryPage::createContent ()
     }
     mainLayout()->addItem(m_Spacer);
 
-    centralWidget()->adjustSize();
+    //centralWidget()->adjustSize();
 }
 
 const QString 
@@ -312,9 +316,9 @@ DcpAppletCategoryPage::createBody()
     setProgressIndicatorVisible (true);
 #endif
 
-    if (m_DelayedContent) {
-        centralWidget()->adjustSize();
-    }
+    //if (m_DelayedContent) {
+    //    centralWidget()->adjustSize();
+    //}
 }
 
 void

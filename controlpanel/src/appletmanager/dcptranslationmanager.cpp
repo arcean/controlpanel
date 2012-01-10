@@ -30,6 +30,9 @@
 
 #include <QHash>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 /* extremal value to differentiate the fact when retranslate was never
  * run before. (Becase the loaded language gconf value can also be null or empty
  * in some cases. */
@@ -149,8 +152,10 @@ bool DcpTranslationManager::loadTranslations (MLocale& locale,
         /* Do not load the translation if it is already loaded
          */
         if (priv->loadedTranslations.contains(catalog)) continue;
-
-        locale.installTrCatalog(catalog); // install translation, if any
+        
+        // install translation, if any
+        DCP_DEBUG ("Loading trcatalog %s", DCP_STR(catalog));
+        locale.installTrCatalog(catalog); 
         hasChanged = true;
 
         // mark it as loaded:

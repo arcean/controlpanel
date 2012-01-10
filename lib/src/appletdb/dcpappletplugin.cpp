@@ -28,6 +28,9 @@
 #include "syslog.h"
 #include <QTime>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 QLibrary::LoadHints DcpAppletPluginPrivate::defaultLoadHints = 0;
 
 /*!
@@ -150,6 +153,7 @@ DcpAppletPlugin::errorMsg () const
 bool 
 DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
 {
+    DCP_DEBUG ("Loading %s", DCP_STR(binaryPath));
     /*
      * The external program applets does not use binary file to load. Here is a
      * protection for them, but I'm not sure this is how we should handle the
@@ -199,7 +203,7 @@ DcpAppletPlugin::loadPluginFile (const QString &binaryPath)
         if (!d_ptr->appletInstance) {
             d_ptr->errorMsg = "Loading of the '" + binaryPath + "/" +
                 metadata()->name() +
-                "' applet failed: Invalid ExampleAppletInterface object.";
+                "' applet failed: Invalid DcpAppletIf object.";
             syslog (LOG_WARNING, qPrintable(d_ptr->errorMsg));
             return false;
         } else {
@@ -229,17 +233,18 @@ void
 DcpAppletPlugin::load ()
 {
     QString binaryPath = d_ptr->appletMetadata->fullBinary();
-    QString dslFilename = d_ptr->appletMetadata->dslFilename ();
 
     DCP_DEBUG ("*** binaryPath          = '%s'", DCP_STR (binaryPath));
-    DCP_DEBUG ("*** dslFilename         = '%s'", DCP_STR (dslFilename));
     DCP_DEBUG ("*** applicationCommand  = '%s'", 
             DCP_STR (d_ptr->appletMetadata->applicationCommand ()));
 
     if (!binaryPath.isEmpty()) {
         loadPluginFile (binaryPath);
-    } else if (!dslFilename.isEmpty()) {
-        loadDslFile (dslFilename);
+    } else {
+        QString dslFilename = d_ptr->appletMetadata->dslFilename ();
+        
+        if (!dslFilename.isEmpty()) 
+            loadDslFile (dslFilename);
     }
 }
 

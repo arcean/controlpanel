@@ -22,9 +22,13 @@
 #include "dcpdebug.h"
 #include <MStylableWidget>
 
+//#define DEBUG
+#include "dcpdebug.h"
+
 DcpMainCategory::DcpMainCategory (QGraphicsWidget *parent):
     QGraphicsWidget (parent)
 {
+    DCP_DEBUG ("--------------------------------------------------");
     QGraphicsLinearLayout* layout =
         new QGraphicsLinearLayout(Qt::Vertical, this);
 
@@ -39,7 +43,10 @@ void
 DcpMainCategory::deleteItems ()
 {
     QGraphicsLinearLayout* layout = mLayout();
-    if (!layout) return;
+   
+    DCP_DEBUG ("");
+    if (!layout) 
+        return;
 
     for (int i = layout->count() - 1; i >= 0; i--){
         QGraphicsWidget* widget = (QGraphicsWidget*)
@@ -57,6 +64,7 @@ DcpMainCategory::deleteItems ()
 QGraphicsWidget*
 DcpMainCategory::widgetAt (int i)
 {
+    DCP_DEBUG ("*** i = %d", i);
     QGraphicsLinearLayout* layout = mLayout();
     if (i>=layout->count()) return 0;
     QGraphicsLayoutItem* item = layout->itemAt(i);
@@ -67,6 +75,7 @@ DcpMainCategory::widgetAt (int i)
 void
 DcpMainCategory::insertSpacer (int pos)
 {
+    DCP_DEBUG ("");
     MStylableWidget *spacer = new MStylableWidget();
     spacer->setStyleName("CommonLargeSpacer");
     if (pos>=0) {
@@ -79,6 +88,7 @@ DcpMainCategory::insertSpacer (int pos)
 void
 DcpMainCategory::appendSpacer ()
 {
+    DCP_DEBUG ("");
     insertSpacer (-1);
 }
 
