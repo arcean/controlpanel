@@ -194,8 +194,6 @@ DcpAppletCategoryPage::createContent ()
         setTitleStyleName (m_CategoryInfo->titleStyle());
     }
     mainLayout()->addItem(m_Spacer);
-
-    //centralWidget()->adjustSize();
 }
 
 const QString 
@@ -315,10 +313,6 @@ DcpAppletCategoryPage::createBody()
              this, SLOT (onLoadingFinished()));
     setProgressIndicatorVisible (true);
 #endif
-
-    //if (m_DelayedContent) {
-    //    centralWidget()->adjustSize();
-    //}
 }
 
 void
