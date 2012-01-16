@@ -161,12 +161,16 @@ DcpPage::setHandle (const PageHandle &handle)
         mainBack->setIconID ("icon-l-settings-main-view");
         QAction* firstAction = actions().isEmpty() ? 0 : actions().first();
         insertAction (firstAction, mainBack);
-
+#if 0
         // this hack action makes the mainBack align to the left, and the
         // other spacers align centered
+        /*
+         * It seems the removal of this hack solves the NB#296491 and causes no
+         * problems.
+         */
         m_ActionHack = createSpacerAction ();
         insertAction (firstAction, m_ActionHack);
-
+#endif
         connect(mainBack, SIGNAL(triggered()),
                 this, SIGNAL (mainPageIconClicked()));
     }
