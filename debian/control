@@ -27,17 +27,14 @@ Description: Development files for the control panel application and its applets
 Package: duicontrolpanel
 Section: x11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends},
-         libduicontrolpanel (= ${Source-Version}),
-         applauncherd-launcher, clean-device,
-         duicontrolpanel-l10n-engineering-english (= ${Source-Version}),
-         libcreds2
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcreds2, clean-device,
+         libduicontrolpanel (= ${Source-Version}), applauncherd-launcher
 Description: Control Panel
  Control Panel provides an application which uses various plugins to present
  configuration possibilities for the user.
 
 Package: duicontrolpanel-dbg
-Section: devel
+Section: debug
 Architecture: any
 Depends: duicontrolpanel (= ${binary:Version})
 Description: Control Panel - debug symbols
@@ -62,7 +59,7 @@ Description: libduicontrolpanel unit tests
 
 Package: duicontrolpanel-l10n-engineering-english
 Section: misc
-Architecture: any
+Architecture: all
 Enhances: duicontrolpanel
 Description: Engineering English translations for duicontrolpanel
  Contains the engineering translation for duicontrolpanel
