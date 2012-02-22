@@ -2,6 +2,8 @@ duicontrolpanel (0.14.8~1) harmattan; urgency=low
 
   [ David Kedves ]
   * Silence the building...
+  * Fixes: NB#298717 - Settings does not recognize control panel applets
+    installed while it is running
   
   [ Laszlo Pere ]
   * Fixes: NB#294517 - All the “>" buttons and switch button jump right when 
@@ -9,7 +11,7 @@ duicontrolpanel (0.14.8~1) harmattan; urgency=low
   * Fixes: NB#295020 - Weak startuptime of controlpanel, w50
   * Fixes: NB#296491 - Gallery icon’s place is wrong in Wallpaper settings
 
- -- David Kedves <dkedves@blumsoft.eu>  Mon, 02 Jan 2012 14:39:07 +0100
+ -- David Kedves <dkedves@blumsoft.eu>  Wed, 22 Feb 2012 11:21:38 +0100
 
 duicontrolpanel (0.14.7.1) unstable; urgency=low
 
