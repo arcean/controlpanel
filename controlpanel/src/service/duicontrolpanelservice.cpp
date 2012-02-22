@@ -106,7 +106,9 @@ DuiControlPanelService::appletPage (const QString& appletName)
     DcpAppletManager *mng = DcpAppletManager::instance();
     // TODO we could do some optimization here for popping up an applet the first
     // time (do not parse all .desktops)
-    mng->loadMetadata ();
+
+    // We need to re-load everything again, maybe some new applet has been installed meanwhile
+    mng->loadMetadata (true);
     DcpAppletMetadata* metadata = mng->metadata (appletName);
     if (!metadata) {
         // no applet, we have to shut down

@@ -21,6 +21,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QTimer>
+#include <QFileSystemWatcher>
 
 #include "dcpappletmanager.h"
 #include "dcpappletmetadata.h"
@@ -65,11 +66,40 @@ void DcpAppletManager::addDesktopDir(const QString &dir)
     m_DesktopDirs.append(dir);
 }
 
+void DcpAppletManager::startWatching ()
+{
+    static bool watching_started;
+    if (watching_started)
+        return;
+
+    watching_started = true;
+
+    QFileSystemWatcher *dirWatcher =
+        new QFileSystemWatcher (m_DesktopDirs, this);
+
+    connect (dirWatcher, SIGNAL (directoryChanged (const QString&)),
+             this, SLOT (desktopDirChanged ()));
+}
+
+void DcpAppletManager::desktopDirChanged ()
+{
+    /*
+     * Wait for 500msec then check whether there is a new desktop file
+     */
+    QTimer::singleShot (500, this, SLOT (reloadMetadata ()));
+}
+
+void DcpAppletManager::reloadMetadata ()
+{
+    // Force re-checking the desktop directory
+    loadMetadata (true);
+}
+
 /*! \brief Loads applet definitions from .desktop files in a blocking way
  */
-void DcpAppletManager::loadMetadata()
+void DcpAppletManager::loadMetadata(bool force)
 {
-    if (m_IsMetadataLoaded) return;
+    if (!force && m_IsMetadataLoaded) return;
 
     if (isMetadataLoadStarted()) {
         qCritical() << "metadata loading is in progress";
@@ -87,6 +117,8 @@ void DcpAppletManager::loadMetadata()
             }
         }
     }
+
+    startWatching ();
     m_IsMetadataLoaded = true;
     emit metadataLoaded();
  }
@@ -361,11 +393,13 @@ void DcpAppletManager::processSingleDesktopFile()
     if (m_DesktopFilesToProcess.isEmpty()) {
         if (m_IsMetadataLoadStarted) {
             DCP_DEBUG ("metadata load finished");
+            startWatching ();
             m_IsMetadataLoaded = true;
             m_IsMetadataLoadStarted = false;
             emit metadataLoaded();
         } else if (m_IsMetadataPreloadStarted) {
             DCP_DEBUG ("metadata preload finished");
+            startWatching ();
             m_IsMetadataPreloaded = true;
             m_IsMetadataPreloadStarted = false;
             emit metadataPreloaded();
@@ -405,3 +439,4 @@ void DcpAppletManager::clearData()
     m_AppletsByFile.clear();
     m_DesktopDirs.clear();
 }
+

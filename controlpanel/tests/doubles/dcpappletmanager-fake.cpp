@@ -121,8 +121,9 @@ DcpAppletManager::destroyInstance()
 }
 
 void
-DcpAppletManager::loadMetadata()
+DcpAppletManager::loadMetadata(bool force)
 {
+    Q_UNUSED (force);
     FAKE->createTestApplet("fake");
 }
 
@@ -284,6 +285,21 @@ void DcpAppletManager::processSingleDesktopFile()
 bool DcpAppletManager::mainPageAppletFound()
 {
     return false;
+}
+
+void DcpAppletManager::startWatching ()
+{
+
+}
+
+void DcpAppletManager::desktopDirChanged()
+{
+
+}
+
+void DcpAppletManager::reloadMetadata ()
+{
+
 }
 
 

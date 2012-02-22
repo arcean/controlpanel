@@ -57,7 +57,7 @@ class DcpAppletManager : public QObject
 
         virtual ~DcpAppletManager();
         void addDesktopDir(const QString &dir);
-        void loadMetadata();
+        void loadMetadata(bool force = false);
         void loadMetadataAsync();
         void preloadMetadata();
         void preloadMetadataAsync();
@@ -91,6 +91,9 @@ class DcpAppletManager : public QObject
 
     private slots:
         void processSingleDesktopFile();
+        void startWatching ();
+        void desktopDirChanged();
+        void reloadMetadata ();
 
     private:
         static DcpAppletManager *sm_Instance;
