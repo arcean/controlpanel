@@ -1,19 +1,4 @@
-duicontrolpanel (0.14.8~1) harmattan; urgency=low
-
-  [ David Kedves ]
-  * Silence the building...
-  * Fixes: NB#298717 - Settings does not recognize control panel applets
-    installed while it is running
-  
-  [ Laszlo Pere ]
-  * Fixes: NB#294517 - All the “>" buttons and switch button jump right when 
-    launching the ‘Settings‘ application.
-  * Fixes: NB#295020 - Weak startuptime of controlpanel, w50
-  * Fixes: NB#296491 - Gallery icon’s place is wrong in Wallpaper settings
-
- -- David Kedves <dkedves@blumsoft.eu>  Wed, 22 Feb 2012 11:21:38 +0100
-
-duicontrolpanel (0.14.7.1) unstable; urgency=low
+dduicontrolpanel (0.14.7.1) unstable; urgency=low
 
   [ Viktor Nagy ]
   * 284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
@@ -31,6 +16,17 @@ duicontrolpanel (0.14.7.1) unstable; urgency=low
   * 292898 - Item title "Show notifications for:" is displayed
     in the wrong place when opening Notifications from Search
     application.
+
+  [ David Kedves ]
+  * Silence the building...
+  * Fixes: NB#298717 - Settings does not recognize control panel applets
+    installed while it is running
+  
+  [ Laszlo Pere ]
+  * Fixes: NB#294517 - All the “>" buttons and switch button jump right when 
+    launching the ‘Settings‘ application.
+  * Fixes: NB#295020 - Weak startuptime of controlpanel, w50
+  * Fixes: NB#296491 - Gallery icon’s place is wrong in Wallpaper settings
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 07 Dec 2011 10:26:53 +0100
 
