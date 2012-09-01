@@ -1,5 +1,10 @@
 duicontrolpanel (0.14.7.1) unstable; urgency=low
 
+  * Unlock orientation
+  * Various css hacks to fix plugins in landscape
+  * Fixed 'Manage App' button alignment
+  * More landscape layout changes
+
   [ Viktor Nagy ]
   * 284251 - COREWEB: /usr/bin/duicontrolpanel.launch -servicefw
     -outprocess QGraphicsWidget::event QApplicationPrivate::notify_helper
