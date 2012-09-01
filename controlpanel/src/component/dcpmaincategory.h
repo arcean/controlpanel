@@ -69,7 +69,7 @@ DcpMainCategory::appendWidget ( QGraphicsWidget *component)
     DCP_DEBUG ("");
 
     mLayout()->addItem (component);
-    //mLayout()->setAlignment (component, Qt::AlignHCenter);
+    mLayout()->setAlignment (component, Qt::AlignHCenter);
 }
 
 inline void
