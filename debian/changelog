@@ -1,4 +1,4 @@
-duicontrolpanel (0.14.7.1) unstable; urgency=low
+duicontrolpanel (0.14.7.1+0m7) unstable; urgency=low
 
   * Unlock orientation
   * Various css hacks to fix plugins in landscape
