@@ -31,7 +31,6 @@ duicontrolpanel (0.14.7.1+0m7) unstable; urgency=low
   * Fixes: NB#294517 - All the “>" buttons and switch button jump right when 
     launching the ‘Settings‘ application.
   * Fixes: NB#295020 - Weak startuptime of controlpanel, w50
-  * Fixes: NB#296491 - Gallery icon’s place is wrong in Wallpaper settings
 
  -- Robert Manner <robert.manner@blumsoft.eu>  Wed, 07 Dec 2011 10:26:53 +0100
 
